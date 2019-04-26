@@ -8,22 +8,26 @@ import android.view.View;
 public class DoubleClickHandler implements DoubleClickInterface {
 
     DoubleClickListener listener;
+    View view;
 
-    @Override
-    public void setOnClickListener(View view) {
-        view.setOnClickListener(listener);
-    }
 
     public DoubleClickListener getListener() {
         return listener;
     }
+
+    @Override
+    public void setOnClickListener() {
+        view.setOnClickListener(listener);
+    }
+
 
     interface doubleClickHandlerCallback{
         void onSingleClick();
         void onDoubleClick();
     }
 
-    public DoubleClickHandler(final Context context, final doubleClickHandlerCallback callback) {
+    public DoubleClickHandler(View view, final Context context, final doubleClickHandlerCallback callback) {
+        this.view = view;
         listener = new DoubleClickListener() {
             int i = 0;
             @Override
@@ -71,6 +75,7 @@ public class DoubleClickHandler implements DoubleClickInterface {
                 }
             }
         };
+        this.setOnClickListener();
     }
 
 
