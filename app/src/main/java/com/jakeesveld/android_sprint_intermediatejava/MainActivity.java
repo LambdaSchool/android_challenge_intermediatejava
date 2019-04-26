@@ -1,6 +1,7 @@
 package com.jakeesveld.android_sprint_intermediatejava;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,11 +23,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSingleClick() {
                 Toast.makeText(context, "Single Click", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(context, SingleClick.class));
             }
 
             @Override
             public void onDoubleClick() {
                 Toast.makeText(context, "Double Click", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(context, DoubleClick.class));
             }
         });
 
@@ -36,11 +39,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSingleClick() {
                 Toast.makeText(context, "Programatic Single Click", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(context, SingleClick.class));
             }
 
             @Override
             public void onDoubleClick() {
                 Toast.makeText(context, "Programatic Double Click", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(context, DoubleClick.class));
             }
         });
         doubleClickView.setText("Programatic Button");
