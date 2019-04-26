@@ -24,7 +24,10 @@ public class DoubleClickView extends View implements DoubleClickInterface {
 	
 	@Override
 	public boolean performClick() {
-		return doubleClickHandler.performClick(this);
+		if(doubleClickHandler.performClick(this) == true) {
+			return super.performClick();
+		}
+		return false;
 	}
 	
 	@Override

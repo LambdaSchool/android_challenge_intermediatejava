@@ -1,5 +1,6 @@
 package com.example.doubleclick;
 
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,15 +17,17 @@ public class MainActivity extends AppCompatActivity {
 		doubleClickView.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Log.i("test23", "single click");
+				Log.i("test342", "single cliker");
+				doubleClickView.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
 			}
 		});
 		
 		doubleClickView.setOnDoubleClickListener(new DoubleClickListener() {
 			@Override
 			public void onDoubleClick(View view) {
-			
-				Log.i("test23", "double click");
+				
+				Log.i("test342", "doubleclickkkerr");
+				doubleClickView.setBackgroundColor(getResources().getColor(R.color.colorAccent));
 			}
 		});
 	
