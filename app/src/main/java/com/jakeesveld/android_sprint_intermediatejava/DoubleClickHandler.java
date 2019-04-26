@@ -39,16 +39,16 @@ public class DoubleClickHandler implements DoubleClickInterface {
             @Override
             public void onClick(View v) {
                 i++;
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            AtomicBoolean waiting = new AtomicBoolean();
-                            if(i == 1){
+                final AtomicBoolean waiting = new AtomicBoolean();
+                if(i == 1) {
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
                                 waiting.set(true);
                                 Thread.sleep(500);
                                 waiting.set(false);
-                                if(i == 1) {
+                                if (i == 1) {
                                     ((Activity) view.getContext()).runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
@@ -58,12 +58,13 @@ public class DoubleClickHandler implements DoubleClickInterface {
                                     });
                                 }
 
+
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
                             }
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
                         }
-                    }
-                }).start();
+                    }).start();
+                }
 
                 if(i == 2){
                     ((Activity)view.getContext()).runOnUiThread(new Runnable() {
