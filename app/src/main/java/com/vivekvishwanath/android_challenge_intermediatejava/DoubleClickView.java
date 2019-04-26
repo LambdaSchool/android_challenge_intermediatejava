@@ -30,18 +30,8 @@ public class DoubleClickView extends android.support.v7.widget.AppCompatButton i
 
     @Override
     public boolean performClick() {
-
-        if (performSingleClick.get()) {
-            ((Activity)getContext()).runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    DoubleClickView.super.performClick();
-                }
-            });
-        }  else {
-            performAClick();
-        }
-        return false;
+        performAClick();
+        return true;
     }
 
     @Override
@@ -68,11 +58,12 @@ public class DoubleClickView extends android.support.v7.widget.AppCompatButton i
                      e.printStackTrace();
                  }
                  if (doubleClickHandler.getFirstClick() && doubleClickHandler.getWaitingForSecondClick()) {
-                     performSingleClick.set(true);
-                     performClick();
-                     performSingleClick.set(false);
-                 } else {
-                     performSingleClick.set(false);
+                     ((Activity)getContext()).runOnUiThread(new Runnable() {
+                         @Override
+                         public void run() {
+                             DoubleClickView.super.performClick();
+                         }
+                     });
                  }
                  doubleClickHandler.setWaitingForSecondClick(false);
                  doubleClickHandler.setSecondClick(false);
