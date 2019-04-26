@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
         doubleClickButton.SetOnDoubleClickListener(new OnDoubleClickListener() {
             @Override
             public void onDoubleClick(View v) {
-                Toast toast = Toast.makeText(MainActivity.this, "Double clicked!!!", Toast.LENGTH_LONG);
+                Toast toast = Toast.makeText(MainActivity.this, "Double clicked!!!", Toast.LENGTH_SHORT);
                 toast.show();
             }
         });
