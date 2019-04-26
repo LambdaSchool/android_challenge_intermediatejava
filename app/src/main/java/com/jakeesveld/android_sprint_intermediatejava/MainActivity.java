@@ -4,11 +4,13 @@ import android.content.Context;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     Context context;
-    ConstraintLayout container;
+    LinearLayout container;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         doubleClickView.setText("Programatic Button");
+        doubleClickView.setGravity(Gravity.CENTER);
         container = findViewById(R.id.container);
         container.addView(doubleClickView);
 
