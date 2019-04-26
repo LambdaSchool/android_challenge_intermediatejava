@@ -1,34 +1,29 @@
 package com.example.android_challenge_intermediatejava;
 
 import android.app.Activity;
-import android.content.Context;
 import android.view.View;
+
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class DoubleClickHandler implements DoubleClickInterface {
 
-    DoubleClickListener listener;
-    View view;
-
-    interface doubleClickHandlerCallback{
-        void onSingleClick();
-        void onDoubleClick();
-    }
+    private OnDoubleClickListener listener;
+    private View view;
 
     @Override
     public void setOnClickListener() {
         view.setOnClickListener(listener);
     }
 
+    interface doubleClickHandlerCallback{
+        void onSingleClick();
+        void onDoubleClick();
+    }
 
-
-
-    public DoubleClickHandler(View view, final Context context, final doubleClickHandlerCallback callback) {
+    public DoubleClickHandler(final View view, final doubleClickHandlerCallback callback) {
         this.view = view;
-        listener = new DoubleClickListener() {
-//            int clickCounter = 0;
-            boolean isclicked = false;
-            boolean isDouble = false;
-
+        listener = new OnDoubleClickListener() {
+            int clickCounter = 0;
             @Override
             public void singleClick() {
                 callback.onSingleClick();
@@ -41,48 +36,44 @@ public class DoubleClickHandler implements DoubleClickInterface {
 
             @Override
             public void onClick(View v) {
-//            clickCounter++;
-                isclicked =!isclicked;
-                if(isclicked)
-
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            Thread.sleep(500);
-//                            clickCounter = 0;
-                            isclicked = false;
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }).start();
-
-                if(clickCounter == 1){
-                    ((Activity)context).runOnUiThread(new Runnable() {
+                clickCounter++;
+                final AtomicBoolean isSecondClick = new AtomicBoolean();
+                switch (clickCounter){
+                case 1:
+                    new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            singleClick();
-                        }
-                    });
-
-                }
-                if(clickCounter == 2){
-                    ((Activity)context).runOnUiThread(new Runnable() {
+                            try {
+                                isSecondClick.set(true);
+                                Thread.sleep(300);
+                                isSecondClick.set(false);
+                                if (clickCounter == 1) {
+                                    ((Activity) view.getContext()).runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            singleClick();
+                                            clickCounter = 0;
+                                        }
+                                    });
+                                }
+                            } catch (InterruptedException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                }).start();
+                break;
+                case 2:
+                    ((Activity)view.getContext()).runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             doubleClick();
+                            clickCounter = 0;
                         }
                     });
-
+                break;
                 }
             }
         };
         this.setOnClickListener();
     }
-
-
-
-
-
 }

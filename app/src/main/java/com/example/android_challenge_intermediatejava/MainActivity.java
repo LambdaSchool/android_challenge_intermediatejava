@@ -11,27 +11,22 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     Context context;
+    DoubleClickHandler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         context = this;
-
-        new DoubleClickHandler(findViewById(R.id.button_double_click),context, new DoubleClickHandler.doubleClickHandlerCallback() {
+        handler = new DoubleClickHandler(findViewById(R.id.button_double_click), new DoubleClickHandler.doubleClickHandlerCallback() {
             @Override
             public void onSingleClick() {
                 Toast.makeText(context, "Single Click", Toast.LENGTH_SHORT).show();
             }
-
             @Override
             public void onDoubleClick() {
-
                 Toast.makeText(context, "Double Click", Toast.LENGTH_LONG).show();
             }
         });
-
-
-
     }
 }
