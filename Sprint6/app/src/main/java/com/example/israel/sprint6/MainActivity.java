@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -33,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        final TextView maxTimeTextView = findViewById(R.id.text_view_max_time);
+        maxTimeTextView.setText("Current double click max time: " + doubleClickButton.getDoubleClickMaxTime() + "ms");
+
         final EditText maxTimeEditText = findViewById(R.id.edit_text_max_time);
         maxTimeEditText.setText(Integer.toString(doubleClickButton.getDoubleClickMaxTime()));
 
@@ -46,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 doubleClickButton.setDoubleClickMaxTime(Integer.parseInt(newMaxTimeStr));
+                maxTimeTextView.setText("Current double click max time: " + newMaxTimeStr + "ms");
             }
         });
     }

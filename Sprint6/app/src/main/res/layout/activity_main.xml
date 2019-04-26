@@ -4,17 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:padding="20dp">
 
     <com.example.israel.sprint6.DoubleClickButton
         android:id="@+id/double_click_button_test"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="24dp"
+        android:text="Double click me"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="Double click me" />
+        app:layout_constraintTop_toBottomOf="@+id/text_view_max_time" />
 
     <EditText
         android:id="@+id/edit_text_max_time"
@@ -33,11 +34,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/text_view_max_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Current double click max time: "
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_max_time" />
+
     <com.example.israel.sprint6.CountdownView
         android:id="@+id/countdown_view_remaining_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="30dp"
         android:text="Remaining time: "
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/double_click_button_test" />

@@ -28,7 +28,7 @@ public class CountdownView extends AppCompatTextView {
         countDownTimer = new CountDownTimer(timeMillis, 100) {
             @Override
             public void onTick(long millisUntilFinished) {
-                setText("Remaining time: " + millisUntilFinished);
+                setText("Remaining time: " + millisUntilFinished + "ms");
             }
 
             @Override
