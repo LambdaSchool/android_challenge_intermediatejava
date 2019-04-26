@@ -3,8 +3,6 @@ package com.example.israel.sprint6;
 import android.content.Context;
 import android.support.v7.widget.AppCompatButton;
 import android.util.AttributeSet;
-import android.view.View;
-
 public class DoubleClickButton extends AppCompatButton implements DoubleClickInterface {
 
     public DoubleClickButton(Context context) {
