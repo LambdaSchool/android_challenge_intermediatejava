@@ -8,10 +8,27 @@ import android.widget.Button;
 
 public class DoubleClickView extends android.support.v7.widget.AppCompatButton implements DoubleClickInterface {
 
+    private DoubleClickHandler handler;
 
+    interface DoubleClickCallback{
+        void onSingleClick();
+        void onDoubleClick();
+    }
 
-    public DoubleClickView(Context context) {
+    public DoubleClickView(Context context, final DoubleClickCallback callback) {
         super(context);
+        this.handler = new DoubleClickHandler(context, new DoubleClickHandler.doubleClickHandlerCallback() {
+            @Override
+            public void onSingleClick() {
+                callback.onSingleClick();
+            }
+
+            @Override
+            public void onDoubleClick() {
+                callback.onDoubleClick();
+            }
+        });
+
     }
 
     public DoubleClickView(Context context, AttributeSet attrs) {
@@ -22,25 +39,13 @@ public class DoubleClickView extends android.support.v7.widget.AppCompatButton i
         super(context, attrs, defStyleAttr);
     }
 
-
-    interface DoubleClickListenerCallback{
-
-
-    }
-
     @Override
     public void setOnClickListener(View view) {
-        DoubleClickHandler handler = new DoubleClickHandler() {
-            @Override
-            void onSingleClick() {
-
-            }
-
-            @Override
-            void onDoubleClick() {
-
-            }
-        };
-        handler.setOnClickListener(view);
+        view.setOnClickListener(handler.getListener());
     }
+
+
+
+
+
 }

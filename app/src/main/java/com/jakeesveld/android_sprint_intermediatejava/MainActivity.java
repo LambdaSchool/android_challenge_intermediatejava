@@ -10,6 +10,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        DoubleClickView doubleClickView = new DoubleClickView(this, new DoubleClickView.DoubleClickCallback() {
+            @Override
+            public void onSingleClick() {
 
+            }
+
+            @Override
+            public void onDoubleClick() {
+
+            }
+        });
     }
 }

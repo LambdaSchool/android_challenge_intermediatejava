@@ -1,51 +1,80 @@
 package com.jakeesveld.android_sprint_intermediatejava;
 
+
+import android.app.Activity;
+import android.content.Context;
 import android.view.View;
 
-public abstract class DoubleClickHandler implements DoubleClickInterface {
+public class DoubleClickHandler implements DoubleClickInterface {
 
-
-    DoubleClickListener clickListener = new DoubleClickListener() {
-        int i = 0;
-
-        @Override
-        public void singleClick() {
-            onSingleClick();
-        }
-
-        @Override
-        public void doubleClick() {
-            onDoubleClick();
-        }
-
-        @Override
-        public void onClick(View v) {
-            i++;
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        Thread.sleep(500);
-                        i = 0;
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }).start();
-
-            if(i == 1){
-                singleClick();
-            }else if (i == 2){
-                doubleClick();
-            }
-        }
-    };
-
-    abstract void onSingleClick();
-    abstract void onDoubleClick();
+    DoubleClickListener listener;
 
     @Override
     public void setOnClickListener(View view) {
-        view.setOnClickListener(clickListener);
+        view.setOnClickListener(listener);
     }
+
+    public DoubleClickListener getListener() {
+        return listener;
+    }
+
+    interface doubleClickHandlerCallback{
+        void onSingleClick();
+        void onDoubleClick();
+    }
+
+    public DoubleClickHandler(final Context context, final doubleClickHandlerCallback callback) {
+        listener = new DoubleClickListener() {
+            int i = 0;
+            @Override
+            public void singleClick() {
+                callback.onSingleClick();
+            }
+
+            @Override
+            public void doubleClick() {
+                callback.onDoubleClick();
+            }
+
+            @Override
+            public void onClick(View v) {
+                i++;
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(500);
+                            i = 0;
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
+
+                if(i == 1){
+                    ((Activity)context).runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            singleClick();
+                        }
+                    });
+
+                }
+                if(i == 2){
+                    ((Activity)context).runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            doubleClick();
+                        }
+                    });
+
+                }
+            }
+        };
+    }
+
+
+
+
+
 }
