@@ -45,7 +45,7 @@ public class DoubleClickHandler implements DoubleClickInterface {
                         public void run() {
                             try {
                                 isSecondClick.set(true);
-                                Thread.sleep(300);
+                                Thread.sleep(250);
                                 isSecondClick.set(false);
                                 if (clickCounter == 1) {
                                     ((Activity) view.getContext()).runOnUiThread(new Runnable() {
