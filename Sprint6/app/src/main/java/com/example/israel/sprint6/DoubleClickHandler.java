@@ -4,7 +4,7 @@ import android.view.View;
 
 public class DoubleClickHandler implements DoubleClickInterface {
 
-    // FIXME make this settable
+    // TODO make this settable
     public static final long DOUBLE_CLICK_INTERVAL = 500;
 
     private OnDoubleClickListener onDoubleClickListener;
@@ -23,13 +23,15 @@ public class DoubleClickHandler implements DoubleClickInterface {
         }
 
         onDoubleClickListener.onDoubleClick(v);
-        lastClickTime = 0; // reset
+        lastClickTime = -DOUBLE_CLICK_INTERVAL; // reset
 
     }
 
     @Override
     public void SetOnDoubleClickListener(OnDoubleClickListener l) {
-        lastClickTime = 0; // reset // TODO test
+        // reset // even if the clock was reset to 0, it will still work
+        lastClickTime = -DOUBLE_CLICK_INTERVAL;
+
         onDoubleClickListener = l;
     }
 
