@@ -5,6 +5,9 @@ import android.util.AttributeSet;
 import android.widget.Button;
 
 public class DoubleClickView extends android.support.v7.widget.AppCompatButton implements DoubleClickInterface {
+	
+	DoubleClickHandler doubleClickHandler = new DoubleClickHandler();
+	
 	public DoubleClickView(Context context) {
 		super(context);
 	}
@@ -20,5 +23,11 @@ public class DoubleClickView extends android.support.v7.widget.AppCompatButton i
 	@Override
 	public void setOnDoubleClickListener() {
 	
+	}
+	
+	@Override
+	public boolean performClick() {
+		
+		return super.performClick();
 	}
 }
