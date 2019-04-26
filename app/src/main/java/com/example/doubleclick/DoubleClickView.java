@@ -3,6 +3,7 @@ package com.example.doubleclick;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 public class DoubleClickView extends View implements DoubleClickInterface {
@@ -20,11 +21,14 @@ public class DoubleClickView extends View implements DoubleClickInterface {
 		super(context, attrs, defStyleAttr);
 	}
 	
-	public DoubleClickView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-		super(context, attrs, defStyleAttr, defStyleRes);
+	
+	@Override
+	public boolean performClick() {
+		return doubleClickHandler.performClick(this);
 	}
 	
-	public void setOnDoubleClickListener(DoubleClickListener doubleClickView) {
-		doubleClickHandler.setOnDoubleClickListener(this);
+	@Override
+	public void setOnDoubleClickListener(DoubleClickListener doubleClickListener) {
+	   doubleClickHandler.setOnDoubleClickListener(doubleClickListener);
 	}
 }

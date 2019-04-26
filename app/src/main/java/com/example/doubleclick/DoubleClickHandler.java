@@ -1,51 +1,37 @@
 package com.example.doubleclick;
 
+import android.util.Log;
 import android.view.View;
 
+import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class DoubleClickHandler implements DoubleClickInterface{
+public class DoubleClickHandler implements DoubleClickInterface {
 	private View view;
 	AtomicBoolean isSingleClick;
 	AtomicBoolean isWaiting;
-	long timeBetweenClicks;
+	private Semaphore clickLock;
+	public long timeBetweenClicks;
 	int numOfClicks;
+	float startTime, currentTime;
 	public static DoubleClickListener doubleClickListener;
 	
-	public DoubleClickHandler(){
-		
-		//this.view = view;
-		isSingleClick.set(false);
-		isWaiting.set(false);
+	public DoubleClickHandler() {
+		clickLock = new Semaphore(1);
+		isSingleClick = new AtomicBoolean();
+		isWaiting = new AtomicBoolean();
 		timeBetweenClicks = 500; //in milliseconds
 		numOfClicks = 0;
 	}
 	
+	public boolean performClick(View v) {
+		doubleClickListener.onDoubleClick(v);
+		return false;
+	}
+	
+	
 	@Override
-	public void setOnDoubleClickListener(View view) {
-		doubleClickListener = new DoubleClickListener() {
-			@Override
-			public void onDoubleClick(View view) {
-			
-			}
-		};
+	public void setOnDoubleClickListener(DoubleClickListener doubleClickListener) {
+		this.doubleClickListener = doubleClickListener;
 	}
-	
-	public void performClick() {
-		if (!isWaiting.get()) {
-			isWaiting.set(true);
-			
-			numOfClicks++;
-			
-			numOfClicks = 0;
-			
-			isWaiting.set(false);
-		}
-	}
-	
-	
-	
-	private void startWait() {
-	}
-	
 }
