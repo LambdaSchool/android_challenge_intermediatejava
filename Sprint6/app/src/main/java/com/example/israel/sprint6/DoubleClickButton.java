@@ -33,4 +33,14 @@ public class DoubleClickButton extends AppCompatButton implements DoubleClickInt
 
         return super.performClick();
     }
+
+    public void setDoubleClickMaxTime(int doubleClickMaxTime) {
+        // @NOTE: null exception if not bound yet
+        doubleClickHandler.setDoubleClickMaxTime(doubleClickMaxTime);
+    }
+
+    public int getDoubleClickMaxTime() {
+        // @NOTE: null exception if not bound yet
+        return doubleClickHandler.getDoubleClickMaxTime();
+    }
 }
