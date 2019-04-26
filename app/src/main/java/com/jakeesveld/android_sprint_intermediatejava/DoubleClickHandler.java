@@ -10,11 +10,6 @@ public class DoubleClickHandler implements DoubleClickInterface {
     DoubleClickListener listener;
     View view;
 
-
-    public DoubleClickListener getListener() {
-        return listener;
-    }
-
     @Override
     public void setOnClickListener() {
         view.setOnClickListener(listener);
@@ -26,7 +21,7 @@ public class DoubleClickHandler implements DoubleClickInterface {
         void onDoubleClick();
     }
 
-    public DoubleClickHandler(View view, final Context context, final doubleClickHandlerCallback callback) {
+    public DoubleClickHandler(final View view, final doubleClickHandlerCallback callback) {
         this.view = view;
         listener = new DoubleClickListener() {
             int i = 0;
@@ -42,6 +37,7 @@ public class DoubleClickHandler implements DoubleClickInterface {
 
             @Override
             public void onClick(View v) {
+
                 i++;
                 new Thread(new Runnable() {
                     @Override
@@ -56,7 +52,7 @@ public class DoubleClickHandler implements DoubleClickInterface {
                 }).start();
 
                 if(i == 1){
-                    ((Activity)context).runOnUiThread(new Runnable() {
+                    ((Activity)view.getContext()).runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             singleClick();
@@ -65,7 +61,7 @@ public class DoubleClickHandler implements DoubleClickInterface {
 
                 }
                 if(i == 2){
-                    ((Activity)context).runOnUiThread(new Runnable() {
+                    ((Activity)view.getContext()).runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             doubleClick();
