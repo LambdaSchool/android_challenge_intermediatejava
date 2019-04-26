@@ -3,7 +3,7 @@ package com.lambdaschool.intermediatejavasprintchallenge;
 import android.view.View;
 
 /**
- * This is where the double click logic will reside.
+ * This is where the double-click logic will reside.
  */
 public class DoubleClickHandler implements DoubleClickInterface{
     private DoubleClickListener doubleClickListener;
@@ -15,4 +15,5 @@ public class DoubleClickHandler implements DoubleClickInterface{
     public void setOnClickListener(View view) {
 
     }
+
 }
