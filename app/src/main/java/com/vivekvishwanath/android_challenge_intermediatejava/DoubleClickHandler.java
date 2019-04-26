@@ -38,6 +38,31 @@ public class DoubleClickHandler implements DoubleClickInterface {
 
     }
 
+    /* public void performAClick() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (getFirstClick()) {
+                    if (getWaitingForSecondClick()) {
+                        setSecondClick(true);
+                    }
+                } else {
+                    setFirstClick(true);
+                    setWaitingForSecondClick(true);
+                }
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                setWaitingForSecondClick(false);
+                setSecondClick(false);
+                setFirstClick(false);
+                view.performClick();
+            }
+        }).start();
+    } */
+
     public View handleDoubleClick() {
         return this.view;
     }

@@ -9,6 +9,7 @@ import android.view.View;
 public class MainActivity extends AppCompatActivity {
 
     Context context;
+    DoubleClickView view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,7 +17,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         context = this;
 
-        final DoubleClickView view = findViewById(R.id.button);
+        view = findViewById(R.id.button);
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -27,8 +34,15 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                 });
+
+                view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(context, Test2Activity.class);
+                        startActivity(intent);
+                    }
+                });
             }
         });
-
     }
 }
