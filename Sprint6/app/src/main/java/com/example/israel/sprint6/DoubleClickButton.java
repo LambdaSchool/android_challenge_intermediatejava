@@ -27,11 +27,14 @@ public class DoubleClickButton extends AppCompatButton implements DoubleClickInt
 
     @Override
     public boolean performClick() {
-        if (doubleClickHandler != null) {
-            doubleClickHandler.click(this);
+        if (super.performClick()) {
+            if (doubleClickHandler != null) {
+                doubleClickHandler.click(this);
+            }
+            return true;
         }
 
-        return super.performClick();
+        return false;
     }
 
     public void setDoubleClickMaxTime(int doubleClickMaxTime) {

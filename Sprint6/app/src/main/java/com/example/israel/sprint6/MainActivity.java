@@ -14,12 +14,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        final CountdownView remainingTimeCountdownView = findViewById(R.id.countdown_view_remaining_time);
         final DoubleClickButton doubleClickButton = findViewById(R.id.double_click_button_test);
+        doubleClickButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                remainingTimeCountdownView.startCountdown(doubleClickButton.getDoubleClickMaxTime());
+            }
+        });
+
         doubleClickButton.SetOnDoubleClickListener(new OnDoubleClickListener() {
             @Override
             public void onDoubleClick(View v) {
                 Toast toast = Toast.makeText(MainActivity.this, "Double clicked!!!", Toast.LENGTH_SHORT);
                 toast.show();
+                remainingTimeCountdownView.cancelCountdown();
+                remainingTimeCountdownView.setText("Double clicked!!");
             }
         });
 

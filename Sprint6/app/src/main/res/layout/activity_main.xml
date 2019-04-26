@@ -33,6 +33,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
+    <com.example.israel.sprint6.CountdownView
+        android:id="@+id/countdown_view_remaining_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
+        android:text="Remaining time: "
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/double_click_button_test" />
 
 </android.support.constraint.ConstraintLayout>
