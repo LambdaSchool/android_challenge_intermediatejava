@@ -1,10 +1,9 @@
 package com.vivekvishwanath.android_challenge_intermediatejava;
+
 import android.content.Context;
 import android.util.AttributeSet;
 
-public class DoubleClickView extends android.support.v7.widget.AppCompatButton implements DoubleClickInterface
-
-{
+public class DoubleClickView extends android.support.v7.widget.AppCompatButton implements DoubleClickInterface {
     private DoubleClickHandler doubleClickHandler;
 
     public DoubleClickView(Context context) {
@@ -24,7 +23,7 @@ public class DoubleClickView extends android.support.v7.widget.AppCompatButton i
 
     @Override
     public boolean performClick() {
-        requestPermit();
+        performSingleClick();
 
         return super.performClick();
     }
@@ -34,18 +33,26 @@ public class DoubleClickView extends android.support.v7.widget.AppCompatButton i
         doubleClickHandler.setOnDoubleClickListener(listener);
     }
 
-    public void requestPermit() {
+    public void performSingleClick() {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                doubleClickHandler.setFirstClick(true);
-                doubleClickHandler.setWaitingForSecondClick(true);
+                if (doubleClickHandler.getFirstClick()) {
+                    if (doubleClickHandler.getWaitingForSecondClick()) {
+                        doubleClickHandler.setSecondClick(true);
+                    }
+                } else {
+                    doubleClickHandler.setFirstClick(true);
+                    doubleClickHandler.setWaitingForSecondClick(true);
+                }
                 try {
                     Thread.sleep(500);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
                 doubleClickHandler.setWaitingForSecondClick(false);
+                doubleClickHandler.setSecondClick(false);
+                doubleClickHandler.setFirstClick(false);
             }
         }).start();
     }
