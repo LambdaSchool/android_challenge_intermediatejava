@@ -2,7 +2,6 @@ package com.jakeesveld.android_sprint_intermediatejava;
 
 
 import android.app.Activity;
-import android.content.Context;
 import android.view.View;
 
 public class DoubleClickHandler implements DoubleClickInterface {
